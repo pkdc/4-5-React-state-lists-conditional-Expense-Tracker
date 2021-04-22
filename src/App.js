@@ -1,5 +1,7 @@
 import React from 'react';
-import Expenses from './components/Expenses';
+import Expenses from './components/Expenses/Expenses';
+import NewExpense from './components/NewExpense/NewExpense';
+
 
 const expenses = [
   {
@@ -23,10 +25,10 @@ const expenses = [
   },
 ];
 
-function App() {
+const App = () => {
   return (
     <div>
-      <h2>Total Expense Record:</h2>
+      <NewExpense />
         <Expenses expenseArray={expenses}/>
     </div>
   );
