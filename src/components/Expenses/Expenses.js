@@ -11,11 +11,11 @@ const Expenses = (props) => {
   const filterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
 
-    const yearFilter = (filteredYearExpense) => {
+    const filterByYear = (filteredYearExpense) => {
       return filteredYearExpense.date.getFullYear().toString() === selectedYear;
     };
 
-    setFilteredExpenses(props.items.filter(yearFilter));
+    setFilteredExpenses(props.items.filter(filterByYear));
     console.log(filteredExpenses);
     // how to pass the filteredExpenses outside?
     //  return?
