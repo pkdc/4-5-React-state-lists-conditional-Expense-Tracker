@@ -6,20 +6,22 @@ import ExpensesFilter from "./ExpensesFilter";
 
 const Expenses = (props) => {
   const [filteredYear, setFilteredYear] = useState("2020");
-
-
-
+  const [filteredExpenses, setFilteredExpenses] = useState(props.items);
+  
   const filterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
-    // console.log(filteredYear);
 
-    // make a copy of the array
-    const filteredExpenses = [...props.items];
+    const yearFilter = (filteredYearExpense) => {
+      return filteredYearExpense.date.getFullYear().toString() === selectedYear;
+    };
 
-    // function for filtering
-
-    // filter
-    filteredExpenses.filter();
+    setFilteredExpenses(props.items.filter(yearFilter));
+    console.log(filteredExpenses);
+    // how to pass the filteredExpenses outside?
+    //  return?
+    // Should add the item generating code inside,
+    //  instead of trying to get filteredExpenses outside?
+    // store in a state?
   };
 
   // const expenseEntries = ({props.items.map(expenseEntry => {
@@ -36,13 +38,15 @@ const Expenses = (props) => {
         selected={filteredYear}
         onChangeFilter={filterChangeHandler}
       />
-      {props.items.map((expenseEntry) => {
-        return <ExpenseItem
-          key={expenseEntry.id}
-          title={expenseEntry.title}
-          amount={expenseEntry.amount}
-          date={expenseEntry.date}
-        />;
+      {filteredExpenses.map((expenseEntry) => {
+        return (
+          <ExpenseItem
+            key={expenseEntry.id}
+            title={expenseEntry.title}
+            amount={expenseEntry.amount}
+            date={expenseEntry.date}
+          />
+        );
       })}
       {/* <ExpenseItem
         title={props.expenseArray[0].title}
