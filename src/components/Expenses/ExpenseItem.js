@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ExpenseDate from "./ExpenseDate";
 import "./ExpenseItem.css";
 import Card from '../UI/Card';
@@ -9,21 +9,14 @@ const ExpenseItem = props => {
   // const expenseTitle = 'Rubbish Cleaning Fee';
   // const expenseAmount = 689.777;
 
-  const [title, setTitle] = useState(props.title);
-
-  const changeHandler = () => {
-    setTitle('New Title');
-  };
-
   return (
     <Card className="expense-item">
       {/* have to use toISOString() to print the date*/}
       <ExpenseDate expDate={props.date} />
       <article className="expense-item__description">
-        <h2>{title}</h2>
+        <h2>{props.title}</h2>
       </article>
       <div className="expense-item__price">${props.amount}</div>
-      <button onClick={changeHandler}>Change Title</button>
     </Card>
   );
 }

@@ -1,23 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import ExpenseItem from "./ExpenseItem";
 import "./Expenses.css";
-import Card from '../UI/Card';
-import ExpensesFilter from './ExpensesFilter';
+import Card from "../UI/Card";
+import ExpensesFilter from "./ExpensesFilter";
 
-const Expenses = props => {
-  const [filterYear, setFilterYear] = useState('');
+const Expenses = (props) => {
+  const [filteredYear, setFilteredYear] = useState("2020");
 
-  const pickYearFilterHandler = pickedYear => {
-    // console.log("Expenses.js");
-    // console.log(pickedYear);
-    setFilterYear(pickedYear);
-    console.log(filterYear);
+
+
+  const filterChangeHandler = (selectedYear) => {
+    setFilteredYear(selectedYear);
+    // console.log(filteredYear);
+
+    // make a copy of the array
+    const filteredExpenses = [...props.items];
+
+    // function for filtering
+
+    // filter
+    filteredExpenses.filter();
   };
 
+  // const expenseEntries = ({props.items.map(expenseEntry => {
+  //     <ExpenseItem
+  //     title={expenseEntry.title}
+  //     amount={expenseEntry.amount}
+  //     date={expenseEntry.date} />
+  //   })
+  // });
+
   return (
-    <Card className='expenses'>
-      <ExpensesFilter onPickYear={pickYearFilterHandler}/>
-      <ExpenseItem
+    <Card className="expenses">
+      <ExpensesFilter
+        selected={filteredYear}
+        onChangeFilter={filterChangeHandler}
+      />
+      {props.items.map((expenseEntry) => {
+        return <ExpenseItem
+          key={expenseEntry.id}
+          title={expenseEntry.title}
+          amount={expenseEntry.amount}
+          date={expenseEntry.date}
+        />;
+      })}
+      {/* <ExpenseItem
         title={props.expenseArray[0].title}
         amount={props.expenseArray[0].amount}
         date={props.expenseArray[0].date}
@@ -36,9 +63,9 @@ const Expenses = props => {
         title={props.expenseArray[3].title}
         amount={props.expenseArray[3].amount}
         date={props.expenseArray[3].date}
-      ></ExpenseItem>
+      ></ExpenseItem> */}
     </Card>
   );
-}
+};
 
 export default Expenses;
