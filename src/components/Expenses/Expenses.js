@@ -15,23 +15,30 @@ const Expenses = (props) => {
     return filteredYearExpense.date.getFullYear().toString() === filteredYear;
   });
 
-  // const expenseEntries = ({props.items.map(expenseEntry => {
-  //     <ExpenseItem
-  //     title={expenseEntry.title}
-  //     amount={expenseEntry.amount}
-  //     date={expenseEntry.date} />
-  //   })
-  // });
+  // default value to be override if filteredExpenses.length is > 0
+  let expenseContent = <p>No Expenses</p>;
 
+  if (filteredExpenses.length > 0) {
+    // override the default value
+    expenseContent = filteredExpenses.map((expenseEntry) => (
+      <ExpenseItem
+        key={expenseEntry.id}
+        title={expenseEntry.title}
+        amount={expenseEntry.amount}
+        date={expenseEntry.date}
+      />
+  ))
+  }
   return (
     <Card className="expenses">
       <ExpensesFilter
         selected={filteredYear}
         onChangeFilter={filterChangeHandler}
       />
+      {expenseContent}
       {/* using a JS trick of && operator always return the part after
        it, as a result of this overall check */}
-      {filteredExpenses.length === 0 && <p>No Expenses</p>}
+      {/* {filteredExpenses.length === 0 && <p>No Expenses</p>}
       {filteredExpenses.length > 0 && filteredExpenses.map((expenseEntry) => (
           <ExpenseItem
             key={expenseEntry.id}
@@ -39,7 +46,7 @@ const Expenses = (props) => {
             amount={expenseEntry.amount}
             date={expenseEntry.date}
           />
-      ))}
+      ))} */}
     </Card>
   );
 };
