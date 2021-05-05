@@ -29,39 +29,17 @@ const Expenses = (props) => {
         selected={filteredYear}
         onChangeFilter={filterChangeHandler}
       />
-      {filteredExpenses.length === 0 ? (
-        <p>No Expenses</p>
-      ) : (
-        filteredExpenses.map((expenseEntry) => (
+      {/* using a JS trick of && operator always return the part after
+       it, as a result of this overall check */}
+      {filteredExpenses.length === 0 && <p>No Expenses</p>}
+      {filteredExpenses.length > 0 && filteredExpenses.map((expenseEntry) => (
           <ExpenseItem
             key={expenseEntry.id}
             title={expenseEntry.title}
             amount={expenseEntry.amount}
             date={expenseEntry.date}
           />
-        ))
-      )}
-      {}
-      {/* <ExpenseItem
-        title={props.expenseArray[0].title}
-        amount={props.expenseArray[0].amount}
-        date={props.expenseArray[0].date}
-      ></ExpenseItem>
-      <ExpenseItem
-        title={props.expenseArray[1].title}
-        amount={props.expenseArray[1].amount}
-        date={props.expenseArray[1].date}
-      ></ExpenseItem>
-      <ExpenseItem
-        title={props.expenseArray[2].title}
-        amount={props.expenseArray[2].amount}
-        date={props.expenseArray[2].date}
-      ></ExpenseItem>
-      <ExpenseItem
-        title={props.expenseArray[3].title}
-        amount={props.expenseArray[3].amount}
-        date={props.expenseArray[3].date}
-      ></ExpenseItem> */}
+      ))}
     </Card>
   );
 };
