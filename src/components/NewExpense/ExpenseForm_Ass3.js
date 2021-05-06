@@ -7,6 +7,10 @@ const ExpenseForm = (props) => {
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
 
+  // formShown indicates whether the add new expense form 
+  // is hidden or shown default value is hidden
+  const [formShown, setFormShown] = useState(false);
+
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
     // Note: the console.log will not show the
@@ -41,7 +45,19 @@ const ExpenseForm = (props) => {
     setEnteredDate("");
   };
 
-  return (
+  // flip the formShown state
+  const toggleHandler = () => {
+    // overwrite btn
+    setFormShown(!formShown);
+  };
+
+  let toggleForm = (
+    <div className="new-expense__actions">
+      <button onClick={toggleHandler}>Add New Expense</button>
+    </div>
+  );
+
+  let toggleForm2 = (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
@@ -74,12 +90,19 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
-        <button type="button" onClick={props.onCancel}>
-          Cancel
-        </button>
+        <button type="button" onClick={toggleHandler}>Cancel</button>
+      </div>
+      <div className="new-expense__actions">
         <button type="submit">Add Expense</button>
       </div>
     </form>
+  );
+
+  return (
+    <div>
+      {!formShown && toggleForm}
+      {formShown && toggleForm2}
+    </div>
   );
 };
 
